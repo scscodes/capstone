@@ -1,0 +1,29 @@
+// Light Mode Theme Variables
+$light-primary: #3f51b5;
+$light-accent: #ff4081;
+$light-background: #fafafa;
+$light-text: #212121;
+
+// Dark Mode Theme Variables
+$dark-primary: #512da8;
+$dark-accent: #ffc107;
+$dark-background: #1e1e1e;
+$dark-text: #ffffff;
+
+// Export CSS Variables for Each Theme
+ .light-theme {
+   --primary-color: #{$light-primary};
+   --accent-color: #{$light-accent};
+   --background-color: #{$light-background};
+   --text-color: #{$light-text};
+ }
+
+.dark-theme {
+  --primary-color: #{$dark-primary};
+  --accent-color: #{$dark-accent};
+  --background-color: #{$dark-background};
+  --text-color: #{$dark-text};
+}
+
+
+

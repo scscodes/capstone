@@ -1,0 +1,37 @@
+/*
+Usage Examples:
+.success-text {color: var(--success-color);}
+.warning-background {background-color: var(--warning-color);}
+.info-border {border: 1px solid var(--info-color);}
+.error-shadow {box-shadow: 0 4px 8px var(--error-color);}
+*/
+// Status Indicator Colors
+$success-color: #4caf50;
+$warning-color: #ff9800;
+$info-color: #2196f3;
+$error-color: #f44336;
+
+// Export CSS Variables for Status Indicators
+.success {
+  --success-color: #{$success-color};
+  &.color{color: var(--success-color);}
+  &.shadow{box-shadow: 0 4px 8px var(--success-color);}
+}
+
+.warning {
+  --warning-color: #{$warning-color};
+  &.color{color: var(--warning-color);}
+  &.shadow{box-shadow: 0 4px 8px var(--warning-color);}
+}
+
+.info {
+  --info-color: #{$info-color};
+  &.color{color: var(--info-color);}
+  &.shadow{box-shadow: 0 4px 8px var(--info-color);}
+}
+
+.error {
+  --error-color: #{$error-color};
+  &.color{color: var(--error-color);}
+  &.shadow{box-shadow: 0 4px 8px var(--error-color);}
+}

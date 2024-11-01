@@ -1,34 +1,47 @@
-import {CanActivateChildFn, Router} from '@angular/router';
+import {CanActivateFn, Router} from '@angular/router';
 import {inject} from '@angular/core';
-import {UserRole, UserService} from '../user.service';
-import {map} from 'rxjs';
+import {UserService} from './user.service';
 
-const userService = inject(UserService);
-const router = inject(Router);
 
-const patientAccessRoles: Set<string> = new Set(['patient', 'admin']);
-const staffAccessRoles: Set<string> = new Set(['staff', 'admin']);
-const allAccessRoles: Set<string> = new Set([...patientAccessRoles, ...staffAccessRoles])
+export const RoleGuard: CanActivateFn = (route, state) => {
+  const us = inject(UserService);
+  const router = inject(Router);
 
-const roleValidatorFn = (permittedRoles: Set<string>) => userService.getRole$().pipe(
-  map((role: UserRole) => {
-    if(!role){
-      return router.createUrlTree(['/unauthorized']);
-    } else if(permittedRoles.has(role)){
-      return true
-    }
-    return router.createUrlTree(['/unauthorized']);
-  })
-)
-
-export const genericAuthGuard: CanActivateChildFn = () => {
-  return roleValidatorFn(allAccessRoles);
+  const userRole = us.userSubject.getValue().role;
+  if(userRole){
+    return true;
+  }
+  router.navigate(['/welcome'])
+  return false;
 }
 
-export const patientAuthGuard: CanActivateChildFn = () => {
-  return roleValidatorFn(patientAccessRoles);
+
+export const StaffRoleGuard: CanActivateFn = () => {
+  const us = inject(UserService);
+  const router = inject(Router);
+
+  const userRole = us.userSubject.getValue().role;
+  if(!userRole){
+    router.navigate(['/welcome'], {replaceUrl: true}).then();
+  }
+  if(userRole !== 'patient'){
+    return true;
+  }
+  router.navigate(['/unauthorized'])
+  return false;
 };
 
-export const staffAuthGuard: CanActivateChildFn = () => {
-  return roleValidatorFn(staffAccessRoles);
+export const PatientRoleGuard: CanActivateFn = () => {
+  const us = inject(UserService);
+  const router = inject(Router);
+
+  const userRole = us.userSubject.getValue().role;
+  if(!userRole){
+    router.navigate(['/welcome'], {replaceUrl: true}).then();
+  }
+  if(userRole === 'patient'){
+    return true;
+  }
+  router.navigate(['/unauthorized'])
+  return false;
 };

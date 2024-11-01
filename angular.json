@@ -5,31 +5,39 @@
   "projects": {
     "capstone": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/capstone",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
+            "inlineStyleLanguage": "scss",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules/"]
+            },
             "scripts": []
           },
           "configurations": {
@@ -49,9 +57,12 @@
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -86,8 +97,7 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }

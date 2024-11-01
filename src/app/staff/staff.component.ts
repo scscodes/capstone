@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-staff',
   standalone: true,
   imports: [],
-  templateUrl: './staff.component.html',
-  styleUrl: './staff.component.css'
+  template: '',
+  styles: ''
 })
 export class StaffComponent {
 
