@@ -21,8 +21,8 @@ interface chartLabels{
   styleUrl: './highcharts.component.scss'
 })
 export class HighchartsComponent implements AfterViewInit, OnChanges{
-  @Input() chartId: string = '';
-  @Input() chartType: string = 'line'; // Allows setting chart type dynamically
+  @Input() chartId = '';
+  @Input() chartType = 'line'; // Allows setting chart type dynamically
   @Input() chartLabels: chartLabels = { title: '', xAxis: '', yAxis: '' }
   @Input() seriesData: any[] = []; // Accepts various series configurations
   @Input() categories: string[] = []; // Dynamic categories for X-axis

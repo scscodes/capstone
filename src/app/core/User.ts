@@ -17,12 +17,12 @@ export class User {
   userName: string;
   role: UserRole;
 
-  private static existingUIDs: Set<string> = new Set();
-  private static existingEmails: Set<string> = new Set();
-  private static patientCount: number = 0;
-  private static staffCount: number = 0;
-  private static adminCount: number = 0;
-  private static otherCount: number = 0;
+  private static existingUIDs = new Set<string>();
+  private static existingEmails = new Set<string>();
+  private static patientCount = 0;
+  private static staffCount = 0;
+  private static adminCount = 0;
+  private static otherCount = 0;
 
   constructor(userProperties: UserProperties) {
     this.firstName = userProperties.firstName;

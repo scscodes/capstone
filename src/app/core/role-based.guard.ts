@@ -3,7 +3,7 @@ import {inject} from '@angular/core';
 import {UserService} from './user.service';
 
 
-export const RoleGuard: CanActivateFn = (route, state) => {
+export const RoleGuard: CanActivateFn = () => {
   const us = inject(UserService);
   const router = inject(Router);
 

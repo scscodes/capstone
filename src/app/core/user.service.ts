@@ -53,6 +53,10 @@ export class UserService {
     this._userSubject.next(value);
   }
 
+  get patients(){
+    return UserService.users.filter(u => u.role === 'patient');
+  }
+
   get userSubject(): BehaviorSubject<User>{
     return this._userSubject;
   }

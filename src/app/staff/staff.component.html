@@ -9,36 +9,49 @@
   <span><h5>[crit] alert</h5></span>
 </div>
 <hr>
-
 <div>
-  <app-highcharts
-    [chartId]="'vitals-bp'"
-    [chartType]="'line'"
-    [chartLabels]="bpLabels"
-    [seriesData]="bloodPressureData"
-    [categories]="timeCategories">
-  </app-highcharts>
 </div>
+<mat-tab-group>
+  <mat-tab label="Vitals Table">
+    <ng-template matTabContent>
+      <app-table [usersInScope]="patients"></app-table>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Blood Pressure">
+    <ng-template matTabContent>
+      <app-highcharts
+        [chartId]="'vitals-bp'"
+        [chartType]="'line'"
+        [chartLabels]="bpLabels"
+        [seriesData]="bloodPressureData"
+        [categories]="timeCategories">
+      </app-highcharts>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Heart Rate">
+    <ng-template matTabContent>
+      <app-highcharts
+        [chartId]="'vitals-hr'"
+        [chartType]="'line'"
+        [chartLabels]='hrLabels'
+        [seriesData]="heartRateData"
+        [categories]="timeCategories">
+      </app-highcharts>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="O2 Saturation">
+    <ng-template matTabContent>
+      <app-highcharts
+        [chartId]="'vitals-spo2'"
+        [chartType]="'line'"
+        [chartLabels]="spo2Labels"
+        [seriesData]="spo2Data"
+        [categories]="timeCategories">
+      </app-highcharts>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
 
-<div>
-  <app-highcharts
-    [chartId]="'vitals-hr'"
-    [chartType]="'line'"
-    [chartLabels]='hrLabels'
-    [seriesData]="heartRateData"
-    [categories]="timeCategories">
-  </app-highcharts>
-</div>
-
-<div>
-  <app-highcharts
-    [chartId]="'vitals-spo2'"
-    [chartType]="'line'"
-    [chartLabels]="spo2Labels"
-    [seriesData]="spo2Data"
-    [categories]="timeCategories">
-  </app-highcharts>
-</div>
 
 <mat-grid-list cols="2" rowHeight="2:1">
   <mat-grid-tile>
