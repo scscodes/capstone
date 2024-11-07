@@ -1,0 +1,64 @@
+<app-feature-heading
+  heading="Staff"
+  subheading="Current status and resources"
+  about="Common charts, links and tools."
+></app-feature-heading>
+
+<hr>
+<div>
+  <span><h5>[crit] alert</h5></span>
+</div>
+<hr>
+
+<div>
+  <app-highcharts
+    [chartId]="'vitals-bp'"
+    [chartType]="'line'"
+    [chartLabels]="bpLabels"
+    [seriesData]="bloodPressureData"
+    [categories]="timeCategories">
+  </app-highcharts>
+</div>
+
+<div>
+  <app-highcharts
+    [chartId]="'vitals-hr'"
+    [chartType]="'line'"
+    [chartLabels]='hrLabels'
+    [seriesData]="heartRateData"
+    [categories]="timeCategories">
+  </app-highcharts>
+</div>
+
+<div>
+  <app-highcharts
+    [chartId]="'vitals-spo2'"
+    [chartType]="'line'"
+    [chartLabels]="spo2Labels"
+    [seriesData]="spo2Data"
+    [categories]="timeCategories">
+  </app-highcharts>
+</div>
+
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <h3>1. Latest</h3>
+
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <h3>2. Pt. Demographics</h3>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <h3>3. Agg Chart 1</h3>
+
+<!--    <app-highcharts-->
+<!--      [chartType]="'column'"-->
+<!--      [seriesData]="otherMetricData"-->
+<!--      [categories]="timeCategories">-->
+<!--    </app-highcharts>-->
+
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <h3>4. Agg Chart 2</h3>
+  </mat-grid-tile>
+</mat-grid-list>

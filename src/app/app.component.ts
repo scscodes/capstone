@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {HeaderComponent} from './static/layout/header.component';
-import {FooterComponent} from './static/layout/footer.component';
+import {FooterComponent} from './components/structural/footer.component';
+import {HeaderComponent} from './components/structural/header.component';
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -8,6 +8,7 @@ export const RoleGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   const userRole = us.userSubject.getValue().role;
+  console.log('[role guard]')
   if(userRole){
     return true;
   }
@@ -17,6 +18,7 @@ export const RoleGuard: CanActivateFn = (route, state) => {
 
 
 export const StaffRoleGuard: CanActivateFn = () => {
+  console.log('[staff guard]')
   const us = inject(UserService);
   const router = inject(Router);
 
@@ -32,6 +34,7 @@ export const StaffRoleGuard: CanActivateFn = () => {
 };
 
 export const PatientRoleGuard: CanActivateFn = () => {
+  console.log('[pt guard]')
   const us = inject(UserService);
   const router = inject(Router);
 

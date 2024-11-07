@@ -1,6 +1,6 @@
-import {v4 as uuidv4} from 'uuid';
+import {v5 as uuidv5} from 'uuid';
+const UUID_NAMESPACE = '011180f3-080d-4873-9660-280ab5c255ee';
 export type UserRole = 'patient' | 'staff' | 'admin' | null;
-
 export interface UserProperties {
   firstName: string;
   lastName: string;
@@ -26,15 +26,18 @@ export class User {
 
   constructor(userProperties: UserProperties) {
     this.firstName = userProperties.firstName;
-    this.firstName = userProperties.firstName;
     this.lastName = userProperties.lastName;
-    this.UID = uuidv4(); // Generating new UID
     this.email = userProperties.email;
+    this.UID = uuidv5(this.email, UUID_NAMESPACE); // Generating new UID
     this.role = userProperties.role;
     this.userName = userProperties.userName || userProperties.email;
 
-    if (!this.validateUniqueUID(this.UID) || !this.validateUniqueEmail(this.email)) {
-      throw new Error('UID or email already in use');
+    if (!this.validateUniqueEmail(this.email)) {
+      throw new Error(`Email already in use: ${this.email}`);
+    }
+
+    if(!this.validateUniqueUID(this.UID)){
+      throw new Error(`UID already in use: ${this.UID}`);
     }
 
     // Add UID and email to the existing sets
@@ -56,9 +59,9 @@ export class User {
     return !User.existingEmails.has(email);
   }
 
-  static authenticate(email: string, UID: string): boolean {
-    return User.existingUIDs.has(UID) && User.existingEmails.has(email);
-  }
+  // static authenticate(email: string, UID: string): boolean {
+  //   return User.existingUIDs.has(UID) && User.existingEmails.has(email);
+  // }
 
   static getRoleCounters(){
     return {
@@ -68,4 +71,5 @@ export class User {
       other: User.otherCount
     }
   }
+
 }

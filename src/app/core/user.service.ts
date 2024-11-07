@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User, UserProperties, UserRole} from './User';
+import {Names} from '../resources/Names';
 
 
 @Injectable({
@@ -10,31 +11,31 @@ export class UserService {
   private baseUser: User = new User({email: 'fake@email.com', firstName: 'Bad', lastName: 'Actor', role: null})
   private _userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(this.baseUser);
 
-  private mockUserData: UserProperties[] = [
-    { firstName: 'Abe', lastName: 'Link', email: 'abe.link@expres.com', role: 'admin' },
-    { firstName: 'Ten', lastName: 'Ticonderoga', email: 'ten.ticonderoga@pencils.com', role: 'staff' },
-    { firstName: 'Judi', lastName: 'Dench', email: 'm@uk.gov', role: 'staff' },
-    { firstName: 'John', lastName: 'Adams', email: 'john.adams@adamsfam.com', role: 'patient' },
-    { firstName: 'John', lastName: 'Locke', email: 'lockes@treaty.com', role: 'patient' },
-    { firstName: 'Jane', lastName: 'Smith', email: 'jane.smith@example.com', role: 'patient' },
-    { firstName: 'Emily', lastName: 'Airhart', email: 'acepilot@prop.com', role: 'patient' },
-    { firstName: 'Ronald', lastName: 'Donald', email: 'ronny.donald@fries.com', role: 'patient' },
-  ];
+  private static users: User[] = [];
 
   constructor() {
-    this.createMockUsers();
+    // Initialize users with various roles
+    const baseRoles = ['patient', 'staff', 'admin'];
+    UserService.users = Names.map(fullname => {
+      const name = fullname.split(' ')
+      const email = `${name[0].toLowerCase()}${name[1].toLowerCase()}@email.com`;
+      const role = baseRoles[Math.floor(Math.random() * baseRoles.length)];
+      const finalizedProperties: UserProperties = {
+        firstName: name[0],
+        lastName: name[1],
+        email: email,
+        role: role as UserRole
+      }
+      return new User(finalizedProperties)
+    });
+
+    console.log('Mocked Users', User.getRoleCounters())
   }
 
-  private createMockUsers() {
-    for (const propertyValues of this.mockUserData) {
-      try {
-        const newUser = new User(propertyValues);
-        console.log(`Created user: ${newUser.userName} with UID: ${newUser.UID}`);
-      } catch (error) {
-        // @ts-ignore
-        console.error(error.message);
-      }
-    }
+  changeRole(role: UserRole){
+    // Given a role, randomly select a compatible user, updating subject with the latest
+    const reducedByRole = UserService.users.filter(r => r.role === role);
+    this.userSubject = reducedByRole[Math.floor(Math.random() * reducedByRole.length)];
   }
 
   registerUser$(propertyValues: UserProperties): Observable<User>{
@@ -48,6 +49,7 @@ export class UserService {
   }
 
   private set userSubject(value: User){
+    // Update existing user subject with a new user value; functional equivalent to changing logged-in user
     this._userSubject.next(value);
   }
 

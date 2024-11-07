@@ -2,11 +2,11 @@ import { Routes } from '@angular/router';
 import {PatientComponent} from './patient/patient.component';
 import {ProfileComponent} from './patient/profile/profile.component';
 import {StaffComponent} from './staff/staff.component';
-import {UnauthorizedComponent} from './static/pages/unauthorized.component';
-import {NotfoundComponent} from './static/pages/notfound.component';
-import {LandingComponent} from './static/pages/landing/landing.component';
-import {HomeComponent} from './static/pages/home.component';
 import {PatientRoleGuard, RoleGuard, StaffRoleGuard} from './core/role-based.guard';
+import {LandingComponent} from './components/static-pages/landing/landing.component';
+import {HomeComponent} from './components/static-pages/home.component';
+import {NotfoundComponent} from './components/static-pages/notfound.component';
+import {UnauthorizedComponent} from './components/static-pages/unauthorized.component';
 
 
 
