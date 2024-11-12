@@ -1,13 +1,14 @@
-import {Component} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {UserService} from '../../../core/user.service';
 import {Router} from '@angular/router';
 import {MaterialModule} from '../../../resources/material.module';
 import {UserRole} from '../../../core/User';
+import {AboutComponent} from '../about.component';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, AboutComponent],
   template: `
     <div class="landing-container">
       <div class="landing-card hero-image">
@@ -23,19 +24,31 @@ import {UserRole} from '../../../core/User';
         </div>
       </div>
       <div class="landing-row">
-        <button mat-button>Learn More</button>
+        <mat-accordion>
+          <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+            <mat-expansion-panel-header>
+              <mat-panel-title> Learn More</mat-panel-title>
+<!--              <mat-panel-description>-->
+<!--&lt;!&ndash;                Currently I am {{panelOpenState() ? 'open' : 'closed'}}&ndash;&gt;-->
+<!--                About the Project-->
+<!--              </mat-panel-description>-->
+            </mat-expansion-panel-header>
+            <app-about></app-about>
+          </mat-expansion-panel>
+        </mat-accordion>
+
       </div>
       <div class="landing-row">
-        <button mat-flat-button class="role" (click)="changeRole('patient')">Patient</button>
+        <button mat-flat-button class="role" (click)="changeRole('patient')" disabled>Patient</button>
         <button mat-flat-button class="role" (click)="changeRole('staff')">Staff</button>
-        <button mat-flat-button class="role" (click)="changeRole('admin')">Admin</button>
+        <button mat-flat-button class="role" (click)="changeRole('admin')" disabled>Admin</button>
       </div>
     </div>
   `,
   styleUrl: './landing.component.scss'
 })
 export class LandingComponent {
-
+  readonly panelOpenState = signal(false);
   constructor(private us: UserService, private router: Router) {
   }
 

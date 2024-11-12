@@ -12,6 +12,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 const matModules = [
   MatToolbarModule,
@@ -27,6 +28,7 @@ const matModules = [
   MatIconModule,
   MatTableModule,
   MatSortModule,
+  MatExpansionModule
 ]
 
 @NgModule({
