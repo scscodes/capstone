@@ -1,5 +1,9 @@
 # Capstone
 
+# Running Locally
+`npm install`  
+`npm run start`
+
 # MIMIC Datasets
 - Varying prerequisites and access methods by dataset
 - Steps outlined on official pages, ref:
