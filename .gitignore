@@ -43,3 +43,4 @@ Thumbs.db
 /package-lock.json
 /.editorconfig
 /.vscode/
+/notebooks/.env
